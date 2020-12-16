@@ -35,8 +35,8 @@ public class CategoryServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		CategoryDao cd = new CategoryDao();
-		ArrayList<CategoryBean> list2 = cd.selectCategory();
-		request.setAttribute("category", list2);
+		ArrayList<CategoryBean> list = cd.selectCategory();
+		request.setAttribute("category", list);
 
 		RequestDispatcher rd = request.getRequestDispatcher("view/Search.jsp");
 		rd.forward(request,response);

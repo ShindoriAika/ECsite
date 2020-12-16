@@ -21,7 +21,7 @@
 		<input type="text" name="keyword">
 		<input type="submit" value="検索">
 
-		<c:if test="${not empty proList}">
+		<c:if test="${not empty product}">
 			<table>
 				<tr>
 					<td>商品名</td>

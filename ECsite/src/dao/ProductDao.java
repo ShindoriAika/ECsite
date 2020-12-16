@@ -20,7 +20,7 @@ public class ProductDao extends Dao{
 			while(rs.next()){
 				ProductBean pb = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
 						rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
-						rs.getString("pro_img"),rs.getString("pro_msg"));
+						rs.getString("pro_img"),rs.getString("pro_msg"),rs.getString("cat_name"));
 
 				list.add(pb);
 			}
@@ -125,15 +125,16 @@ public class ProductDao extends Dao{
 
 		try {
 			connection();
-			String query = "select * from product where pro_cd=?";
+			String query = "select p.*,c.cat_name from product p,category c "
+					+ "where p.pro_cd=? & p.cat_id=c.cat_id";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1,pro_cd);
 			rs = pstmt.executeQuery();
 
 			rs.next();
-			ProductBean pb = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
-					rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
-					rs.getString("pro_img"),rs.getString("pro_msg"));
+			ProductBean pb = new ProductBean(rs.getInt("p.pro_cd"),rs.getString("p.pro_name"),
+					rs.getInt("p.stock_no"),rs.getInt("p.pro_price"),rs.getInt("p.cat_id"),
+					rs.getString("p.pro_img"),rs.getString("p.pro_msg"),rs.getString("c.cat_name"));
 
 			list.add(pb);
 

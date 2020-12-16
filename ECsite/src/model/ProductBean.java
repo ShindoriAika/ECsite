@@ -9,6 +9,7 @@ public class ProductBean {
 	int cat_id;
 	String pro_img;
 	String pro_msg;
+	String cat_name;
 
 	public ProductBean() {
 
@@ -24,6 +25,20 @@ public class ProductBean {
 		this.cat_id = cat_id;
 		this.pro_img = pro_img;
 		this.pro_msg = pro_msg;
+
+	}
+
+	public ProductBean(int pro_cd,String pro_name,int stock_no,int pro_price,
+			int cat_id,String pro_img,String pro_msg,String cat_name){
+
+		this.pro_cd = pro_cd;
+		this.pro_name = pro_name;
+		this.stock_no = stock_no;
+		this.pro_price = pro_price;
+		this.cat_id = cat_id;
+		this.pro_img = pro_img;
+		this.pro_msg = pro_msg;
+		this.cat_name = cat_name;
 
 	}
 
@@ -55,6 +70,9 @@ public class ProductBean {
 		return pro_msg;
 	}
 
+	public String getCat_name() {
+		return cat_name;
+	}
 
 
 
