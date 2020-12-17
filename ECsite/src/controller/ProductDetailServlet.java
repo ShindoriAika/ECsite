@@ -41,6 +41,8 @@ public class ProductDetailServlet extends HttpServlet {
 		int number = Integer.parseInt(request.getParameter("number"));
 
 		HttpSession session = request.getSession(false);
+
+		@SuppressWarnings("unchecked")
 		ArrayList<CartBean> list = (ArrayList<CartBean>)session.getAttribute("cartList");
 
 		if(list==null) {

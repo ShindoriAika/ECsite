@@ -11,7 +11,7 @@
 <h1>商品紹介</h1>
 	<table>
 		<tr>
-			<td colspan="2">${product.pro_img}</td>
+			<td colspan="2">あ</td>
 		</tr>
 		<tr>
 			<th>商品名</th>

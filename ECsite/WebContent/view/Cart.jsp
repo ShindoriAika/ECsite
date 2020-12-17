@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,model.CartBean" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,6 @@
 <title>カート画面</title>
 </head>
 <body>
-<% CartBean cb = new CartBean(); %>
-<% ArrayList<CartBean> list = (ArrayList<CartBean>)session.getAttribute("cartList"); %>
 <% int total = 0; %>
 <h1>カート</h1>
 	<table>
@@ -17,15 +16,14 @@
 			<th>単価</th>
 			<th>数量</th>
 		</tr>
-		<% for(int i=0; i<list.size(); i++){
-			cb = list.get(i); %>
+		<c:forEach var="cartList" items="${cartList}">
 			<tr>
-				<td><%= cb.getPro_name() %></td>
-				<td><%= cb.getPro_price() %></td>
-				<td><%= cb.getNumber() %></td>
+				<td>${cartList.pro_name}</td>
+				<td>${cartList.pro_price}</td>
+				<td>${cartList.number}</td>
 			</tr>
-			<% total += (cb.getPro_price())*(cb.getNumber()); %>
-		<% } %>
+			<% ${total += (cartList.pro_price)*(cartList.number)} %>
+		</c:forEach>
 		<tr>
 			<th colspan="2">消費税</th>
 			<td><%= (int)(total*(1.1))-total %></td>

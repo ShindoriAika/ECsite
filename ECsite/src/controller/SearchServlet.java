@@ -35,9 +35,9 @@ public class SearchServlet extends HttpServlet {
     	String pro_cd = request.getParameter("pro_cd");
 
     	ProductDao pd = new ProductDao();
-    	ArrayList<ProductBean> list = pd.selectProCode(pro_cd);
+    	ProductBean pb = pd.selectProCode(pro_cd);
 
-    	request.setAttribute("product",list);
+    	request.setAttribute("product",pb);
 
     	RequestDispatcher rd = request.getRequestDispatcher("/view/ProductDetail.jsp");
 		rd.forward(request,response);

@@ -36,6 +36,7 @@ public class ConfirmationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		HttpSession session = request.getSession();
+		@SuppressWarnings("unchecked")
 		ArrayList<CartBean> list = (ArrayList<CartBean>)session.getAttribute("cartList");
 		ProductDao pd = new ProductDao();
 
