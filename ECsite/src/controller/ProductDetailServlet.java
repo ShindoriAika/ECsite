@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,8 +52,21 @@ public class ProductDetailServlet extends HttpServlet {
 
 		CartBean cb = new CartBean(pro_cd,pro_name,pro_price,stock_no,number);
 		list.add(cb);
+		int total = 0;
+
+		for(CartBean c :list) {
+			total += (c.getPro_price())*(c.getNumber());
+		}
+
+		int totalAndTax = (int)(total * 1.1);
+		int tax = totalAndTax - total;
+
+		HashMap<String,Integer> map = new HashMap<>();
+		map.put("tax",tax);
+		map.put("total",totalAndTax);
 
 		session.setAttribute("cartList",list);
+		session.setAttribute("price", map);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/view/Cart.jsp");
 		rd.forward(request,response);

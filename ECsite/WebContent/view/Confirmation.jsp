@@ -22,15 +22,14 @@
 				<td>${cartList.pro_price}</td>
 				<td>${cartList.number}</td>
 			</tr>
-			<% ${total += (cartList.pro_price)*(cartList.number)} %>
 		</c:forEach>
 		<tr>
 			<th colspan="2">消費税</th>
-			<td><%= (int)(total*(1.1))-total %></td>
+			<td>${price.tax}</td>
 		</tr>
 		<tr>
 			<th colspan="2">合計金額</th>
-			<td><%= (int)(total*(1.1)) %></td>
+			<td>${price.total}</td>
 		</tr>
 	</table>
 	<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">
