@@ -130,7 +130,7 @@ public class ProductDao extends Dao{
 			String query = "select p.pro_cd,p.pro_name,p.stock_no,p.pro_price,"
 					+ "p.cat_id,p.pro_img,p.pro_msg,c.cat_name "
 					+ "from product p,category c "
-					+ "where p.pro_cd=? & p.cat_id=c.cat_id";
+					+ "where p.pro_cd=? and p.cat_id=c.cat_id";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1,pro_cd);
 			rs = pstmt.executeQuery();

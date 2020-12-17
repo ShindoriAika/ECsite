@@ -19,51 +19,39 @@ import model.UserBean;
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
-		String login_cd = request.getParameter("login_cd");
-		String login_pw = request.getParameter("login_pw");
+		String loginCd = request.getParameter("loginCd");
+		String loginPw = request.getParameter("loginPw");
 
-		UserDao ud = new UserDao();
-		ArrayList<UserBean> list = ud.selectLogin(login_cd,login_pw);
-
-		if(login_cd=="" || login_pw=="") {
-
+		if(loginCd=="" || loginPw=="") {
 			request.setAttribute("errorMessage","名前とパスワードを入力してください");
 
 			RequestDispatcher rd = request.getRequestDispatcher("/view/Login.jsp");
 			rd.forward(request,response);
 
-		} else if(list.size() == 0) {
+			return;
+		}
 
+		UserDao userDao = new UserDao();
+		ArrayList<UserBean> userList = userDao.selectLogin(loginCd,loginPw);
+
+		if(userList.size() == 0) {
 			request.setAttribute("errorMessage","正しい名前とパスワードを入力してください");
 
 			RequestDispatcher rd = request.getRequestDispatcher("/view/Login.jsp");
 			rd.forward(request,response);
 
 		} else {
-
 			HttpSession session = request.getSession(true);
-			session.setAttribute("login_cd",login_cd);
-			session.setAttribute("login_pw",login_pw);
+			session.setAttribute("loginCd",loginCd);
 
 			RequestDispatcher rd = request.getRequestDispatcher("/CategoryServlet");
 			rd.forward(request,response);
-
 		}
 
 	}

@@ -10,8 +10,8 @@
 		<h1>ログイン</h1>
 		<p>${errorMessage}</p>
 		<form id="form" action="http://localhost:8080/ECsite/LoginServlet" method="post">
-			名前<input id="login_cd" type="text" name="login_cd"><br>
-			パスワード<input id="login_pw" type="password" name="login_pw"><br>
+			名前<input id="loginCd" type="text" name="loginCd"><br>
+			パスワード<input id="loginPw" type="password" name="loginPw"><br>
 
 			<input type="submit" value="ログイン">
 		</form>

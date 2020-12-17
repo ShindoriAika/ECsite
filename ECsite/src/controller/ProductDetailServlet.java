@@ -19,15 +19,6 @@ import model.CartBean;
  */
 @WebServlet("/ProductDetailServlet")
 public class ProductDetailServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductDetailServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -50,8 +41,17 @@ public class ProductDetailServlet extends HttpServlet {
 			list = new ArrayList<>();
 		}
 
-		CartBean cb = new CartBean(pro_cd,pro_name,pro_price,stock_no,number);
-		list.add(cb);
+		System.out.println(pro_cd);
+
+		for(CartBean c :list) {
+			if(pro_cd == c.getPro_cd()) {
+				c.setNumber(c.getNumber()+number);
+			} else {
+				CartBean cb = new CartBean(pro_cd,pro_name,pro_price,stock_no,number);
+				list.add(cb);
+			}
+		}
+
 		int total = 0;
 
 		for(CartBean c :list) {
