@@ -37,18 +37,20 @@ public class ProductDetailServlet extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		ArrayList<CartBean> list = (ArrayList<CartBean>)session.getAttribute("cartList");
 
+		System.out.println(list);
 		if(list==null) {
-			list = new ArrayList<>();
+			list = new ArrayList<CartBean>();
 		}
 
-		System.out.println(pro_cd);
+		CartBean cb = new CartBean(pro_cd,pro_name,pro_price,stock_no,number);
+		list.add(cb);
 
 		for(CartBean c :list) {
-			if(pro_cd == c.getPro_cd()) {
+			if(c == list.get(list.size()-1)){
+				break;
+			}else if(pro_cd == c.getPro_cd()) {
 				c.setNumber(c.getNumber()+number);
-			} else {
-				CartBean cb = new CartBean(pro_cd,pro_name,pro_price,stock_no,number);
-				list.add(cb);
+				list.remove(list.size()-1);
 			}
 		}
 
