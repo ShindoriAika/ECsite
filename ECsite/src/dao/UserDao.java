@@ -37,4 +37,23 @@ public class UserDao extends Dao{
 		return list;
 	}
 
+	public void insertAccount (String login_cd,String login_pw){
+
+		try {
+			connection();
+			String query = "insert into user (login_cd,login_pw) values (?,?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,login_cd);
+			pstmt.setString(2,login_pw);
+			pstmt.executeUpdate();
+
+		} catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+	}
+
 }
