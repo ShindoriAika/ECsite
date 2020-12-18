@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,24 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import dao.CategoryDao;
 import model.CategoryBean;
 
-/**
- * Servlet implementation class CategoryServlet
- */
 @WebServlet("/CategoryServlet")
 public class CategoryServlet extends HttpServlet {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
-		CategoryDao cd = new CategoryDao();
-		ArrayList<CategoryBean> list = cd.selectCategory();
+		ArrayList<CategoryBean> list = new CategoryDao().selectCategory();
 		request.setAttribute("category", list);
 
-		RequestDispatcher rd = request.getRequestDispatcher("view/Search.jsp");
-		rd.forward(request,response);
+		request.getRequestDispatcher("view/Search.jsp").forward(request,response);
 	}
 
 }

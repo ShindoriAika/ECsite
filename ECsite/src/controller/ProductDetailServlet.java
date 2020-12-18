@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,17 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import model.CartBean;
 
-/**
- * Servlet implementation class ProductDetailServlet
- */
 @WebServlet("/ProductDetailServlet")
 public class ProductDetailServlet extends HttpServlet {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		int pro_cd = Integer.parseInt(request.getParameter("pro_cd"));
 		String pro_name = request.getParameter("pro_name");
@@ -37,7 +29,6 @@ public class ProductDetailServlet extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		ArrayList<CartBean> list = (ArrayList<CartBean>)session.getAttribute("cartList");
 
-		System.out.println(list);
 		if(list==null) {
 			list = new ArrayList<CartBean>();
 		}
@@ -70,8 +61,7 @@ public class ProductDetailServlet extends HttpServlet {
 		session.setAttribute("cartList",list);
 		session.setAttribute("price", map);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/view/Cart.jsp");
-		rd.forward(request,response);
+		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
 
 	}
 
