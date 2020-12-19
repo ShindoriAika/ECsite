@@ -14,7 +14,6 @@ import javax.servlet.annotation.WebFilter;
 public class EncodeFilter implements Filter {
 
 	public void destroy() {
-
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -26,7 +25,5 @@ public class EncodeFilter implements Filter {
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-
 	}
-
 }

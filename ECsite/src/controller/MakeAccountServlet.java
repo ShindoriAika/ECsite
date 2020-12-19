@@ -26,5 +26,4 @@ public class MakeAccountServlet extends HttpServlet {
 		request.setAttribute("message","登録できました");
 		request.getRequestDispatcher("/view/MakeAccount.jsp").forward(request,response);
 	}
-
 }

@@ -18,40 +18,40 @@ public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    	String pro_cd = request.getParameter("pro_cd");
+    	String proCd = request.getParameter("proCd");
 
-    	ProductBean pb = new ProductDao().selectProCode(pro_cd);
-    	request.setAttribute("product",pb);
+    	ProductBean ProductBean = new ProductDao().selectProCode(proCd);
+    	request.setAttribute("product",ProductBean);
 
     	request.getRequestDispatcher("/view/ProductDetail.jsp").forward(request,response);
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String cat_name = request.getParameter("cat_name");
+		String catName = request.getParameter("catName");
 		String keyword = request.getParameter("keyword");
 
-		ProductDao pd = new ProductDao();
-		ArrayList<ProductBean> list = new ArrayList<>();
+		ProductDao ProductDao = new ProductDao();
+		ArrayList<ProductBean> ProductList = new ArrayList<>();
 
-		if(cat_name=="" && keyword=="") {
-			list = pd.selectAll();
+		if(catName=="" && keyword=="") {
+			ProductList = ProductDao.selectAll();
 
-		} else if(cat_name!="" && keyword!="") {
-			list = pd.selectCatAndWord(Integer.parseInt(cat_name),keyword);
+		} else if(catName!="" && keyword!="") {
+			ProductList = ProductDao.selectCatAndWord(Integer.parseInt(catName),keyword);
 
-		} else if(cat_name!="") {
-			list = pd.selectCategory(Integer.parseInt(cat_name));
+		} else if(catName!="") {
+			ProductList = ProductDao.selectCategory(Integer.parseInt(catName));
 
 		} else if(keyword!="") {
-			list = pd.selectProName(keyword);
+			ProductList = ProductDao.selectProName(keyword);
 		}
 
-		if(list.size()==0) {
+		if(ProductList.size()==0) {
 			request.setAttribute("errorMessage","検索結果がありません");
 
 		} else {
-			request.setAttribute("product",list);
+			request.setAttribute("product",ProductList);
 		}
 
 		request.getRequestDispatcher("/CategoryServlet").forward(request,response);

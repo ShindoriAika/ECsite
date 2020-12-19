@@ -11,35 +11,35 @@
 <h1>商品紹介</h1>
 	<table>
 		<tr>
-			<td colspan="2">${product.pro_img}</td>
+			<td colspan="2">${product.proImg}</td>
 		</tr>
 		<tr>
 			<th>商品名</th>
-			<td>${product.pro_name}</td>
+			<td>${product.proName}</td>
 		</tr>
 		<tr>
 			<th>カテゴリ</th>
-			<td>${product.cat_name}</td>
+			<td>${product.catName}</td>
 		</tr>
 		<tr>
 			<th>価格</th>
-			<td>${product.pro_price}</td>
+			<td>${product.proPrice}</td>
 		</tr>
 		<tr>
 			<th>在庫</th>
-			<td>${product.stock_no}</td>
+			<td>${product.stockNo}</td>
 		</tr>
 		<tr>
 			<th>商品説明</th>
-			<td>${product.pro_msg}</td>
+			<td>${product.proMsg}</td>
 		</tr>
 	</table>
 	<form action="http://localhost:8080/ECsite/ProductDetailServlet" method="POST">
-		<input type="number" name="number" value="0" min="1" max="${product.stock_no}">
-		<input type="hidden" name="pro_cd" value="${product.pro_cd}">
-		<input type="hidden" name="pro_name" value="${product.pro_name}">
-		<input type="hidden" name="pro_price" value="${product.pro_price}">
-		<input type="hidden" name="stock_no" value="${product.stock_no}">
+		<input type="number" name="number" value="0" min="1" max="${product.stockNo}">
+		<input type="hidden" name="proCd" value="${product.proCd}">
+		<input type="hidden" name="proName" value="${product.proName}">
+		<input type="hidden" name="proPrice" value="${product.proPrice}">
+		<input type="hidden" name="stockNo" value="${product.stockNo}">
 		<input type="submit" value="カートへ">
 	</form>
 	<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">

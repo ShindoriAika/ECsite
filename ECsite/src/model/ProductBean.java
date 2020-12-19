@@ -2,78 +2,75 @@ package model;
 
 public class ProductBean {
 
-	int pro_cd;
-	String pro_name;
-	int stock_no;
-	int pro_price;
-	int cat_id;
-	String pro_img;
-	String pro_msg;
-	String cat_name;
+	int proCd;
+	String proName;
+	int stockNo;
+	int proPrice;
+	int catId;
+	String proImg;
+	String proMsg;
+	String catName;
 
 	public ProductBean() {
 
 	}
 
-	public ProductBean(int pro_cd,String pro_name,int stock_no,int pro_price,
-			int cat_id,String pro_img,String pro_msg){
+	public ProductBean(int proCd,String proName,int stockNo,int proPrice,
+			int catId,String proImg,String proMsg){
 
-		this.pro_cd = pro_cd;
-		this.pro_name = pro_name;
-		this.stock_no = stock_no;
-		this.pro_price = pro_price;
-		this.cat_id = cat_id;
-		this.pro_img = pro_img;
-		this.pro_msg = pro_msg;
-
-	}
-
-	public ProductBean(int pro_cd,String pro_name,int stock_no,int pro_price,
-			int cat_id,String pro_img,String pro_msg,String cat_name){
-
-		this.pro_cd = pro_cd;
-		this.pro_name = pro_name;
-		this.stock_no = stock_no;
-		this.pro_price = pro_price;
-		this.cat_id = cat_id;
-		this.pro_img = pro_img;
-		this.pro_msg = pro_msg;
-		this.cat_name = cat_name;
+		this.proCd = proCd;
+		this.proName = proName;
+		this.stockNo = stockNo;
+		this.proPrice = proPrice;
+		this.catId = catId;
+		this.proImg = proImg;
+		this.proMsg = proMsg;
 
 	}
 
-	public int getPro_cd() {
-		return pro_cd;
+	public ProductBean(int proCd,String proName,int stockNo,int proPrice,
+			int catId,String proImg,String proMsg,String catName){
+
+		this.proCd = proCd;
+		this.proName = proName;
+		this.stockNo = stockNo;
+		this.proPrice = proPrice;
+		this.catId = catId;
+		this.proImg = proImg;
+		this.proMsg = proMsg;
+		this.catName = catName;
+
 	}
 
-	public String getPro_name() {
-		return pro_name;
+	public int getProCd() {
+		return proCd;
 	}
 
-	public int getStock_no() {
-		return stock_no;
+	public String getProName() {
+		return proName;
 	}
 
-	public int getPro_price() {
-		return pro_price;
+	public int getStockNo() {
+		return stockNo;
 	}
 
-	public int getCat_id() {
-		return cat_id;
+	public int getProPrice() {
+		return proPrice;
 	}
 
-	public String getPro_img() {
-		return pro_img;
+	public int getCatId() {
+		return catId;
 	}
 
-	public String getPro_msg() {
-		return pro_msg;
+	public String getProImg() {
+		return proImg;
 	}
 
-	public String getCat_name() {
-		return cat_name;
+	public String getProMsg() {
+		return proMsg;
 	}
 
-
-
+	public String getCatName() {
+		return catName;
+	}
 }

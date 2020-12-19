@@ -17,8 +17,8 @@ public class CategoryServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		ArrayList<CategoryBean> list = new CategoryDao().selectCategory();
-		request.setAttribute("category", list);
+		ArrayList<CategoryBean> CategoryList = new CategoryDao().selectCategory();
+		request.setAttribute("category", CategoryList);
 
 		request.getRequestDispatcher("view/Search.jsp").forward(request,response);
 	}

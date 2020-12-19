@@ -29,19 +29,19 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
-		UserBean ub = new UserDao().selectLogin(loginCd,loginPw);
+		UserBean UserBean = new UserDao().selectLogin(loginCd,loginPw);
 
-		if(ub.getUserId() == 0) {
+		if(UserBean.getUserId() == 0) {
 			request.setAttribute("errorMessage","正しい名前とパスワードを入力してください");
 			request.getRequestDispatcher("/view/Login.jsp").forward(request,response);
 
 		} else {
-			CartBean cb = new CartBean();
-			cb.setUserId(ub.getUserId());
-			cb.setCartProList(new ArrayList<CartProductBean>());
+			CartBean CartBean = new CartBean();
+			CartBean.setUserId(UserBean.getUserId());
+			CartBean.setCartProList(new ArrayList<CartProductBean>());
 
 			HttpSession session = request.getSession(true);
-			session.setAttribute("cart",cb);
+			session.setAttribute("cart",CartBean);
 			request.getRequestDispatcher("/CategoryServlet").forward(request,response);
 		}
 	}

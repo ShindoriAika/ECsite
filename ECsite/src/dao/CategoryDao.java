@@ -9,7 +9,7 @@ public class CategoryDao extends Dao{
 
 	public ArrayList<CategoryBean> selectCategory(){
 
-		ArrayList<CategoryBean> list = new ArrayList<>();
+		ArrayList<CategoryBean> CategoryList = new ArrayList<>();
 
 		try {
 			connection();
@@ -18,10 +18,10 @@ public class CategoryDao extends Dao{
 			rs = stmt.executeQuery(query);
 
 			while(rs.next()){
-				CategoryBean cb = new CategoryBean(
-						rs.getInt("cat_id"),rs.getString("cat_name"));
+				CategoryBean CategoryBean = new CategoryBean(
+						rs.getInt("catId"),rs.getString("catName"));
 
-				list.add(cb);
+				CategoryList.add(CategoryBean);
 			}
 
 		} catch(ClassNotFoundException ex) {
@@ -32,7 +32,7 @@ public class CategoryDao extends Dao{
 			close();
 		}
 
-		return list;
+		return CategoryList;
 	}
 
 }

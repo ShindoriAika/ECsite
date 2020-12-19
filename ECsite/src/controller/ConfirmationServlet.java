@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,16 +21,18 @@ public class ConfirmationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		CartBean cb = (CartBean)session.getAttribute("cart");
+		CartBean CartBean = (CartBean)session.getAttribute("cart");
 
-		for(CartProductBean cpb: cb.getCartProList()) {
-			int stock_no = (cpb.getStock_no())-(cpb.getNumber());
-			new ProductDao().updateStock(Integer.toString(cpb.getPro_cd()),Integer.toString(stock_no));
+		for(CartProductBean CartProBean : CartBean.getCartProList()) {
+			int stockNo = (CartProBean.getStockNo())-(CartProBean.getNumber());
+			new ProductDao().updateStock(Integer.toString(CartProBean.getProCd()),Integer.toString(stockNo));
 
-			new SalesDao().insertSales(cb.getUserId(),Integer.toString(cpb.getPro_cd()),cpb.getPro_price());
+			new SalesDao().insertSales(CartBean.getUserId(),Integer.toString(CartProBean.getProCd()),CartProBean.getProPrice());
 		}
+
+		CartBean.setCartProList(new ArrayList<>());
+		session.setAttribute("cart",CartBean);
 
 		request.getRequestDispatcher("/view/Complete.jsp").forward(request,response);
 	}
-
 }

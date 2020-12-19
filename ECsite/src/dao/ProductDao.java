@@ -7,7 +7,7 @@ import model.ProductBean;
 
 public class ProductDao extends Dao{
 
-	ArrayList<ProductBean> list = new ArrayList<>();
+	ArrayList<ProductBean> ProductList = new ArrayList<>();
 
 	public ArrayList<ProductBean> selectAll(){
 
@@ -18,11 +18,11 @@ public class ProductDao extends Dao{
 			rs = stmt.executeQuery(query);
 
 			while(rs.next()){
-				ProductBean pb = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
+				ProductBean ProductBean = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
 						rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
 						rs.getString("pro_img"),rs.getString("pro_msg"));
 
-				list.add(pb);
+				ProductList.add(ProductBean);
 			}
 
 		} catch(ClassNotFoundException ex) {
@@ -33,25 +33,25 @@ public class ProductDao extends Dao{
 			close();
 		}
 
-		return list;
+		return ProductList;
 	}
 
-	public ArrayList<ProductBean> selectCatAndWord(int cat_name,String keyword){
+	public ArrayList<ProductBean> selectCatAndWord(int catName,String keyword){
 
 		try {
 			connection();
 			String query = "select * from product where pro_name like ? and cat_id=?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1,"%"+keyword+"%");
-			pstmt.setInt(2,cat_name);
+			pstmt.setInt(2,catName);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){
-				ProductBean pb = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
+				ProductBean ProductBean = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
 						rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
 						rs.getString("pro_img"),rs.getString("pro_msg"));
 
-				list.add(pb);
+				ProductList.add(ProductBean);
 			}
 
 		} catch(ClassNotFoundException ex) {
@@ -62,24 +62,24 @@ public class ProductDao extends Dao{
 			close();
 		}
 
-		return list;
+		return ProductList;
 	}
 
-	public ArrayList<ProductBean> selectCategory(int cat_name){
+	public ArrayList<ProductBean> selectCategory(int catName){
 
 		try {
 			connection();
 			String query = "select * from product where cat_id=?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1,cat_name);
+			pstmt.setInt(1,catName);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){
-				ProductBean pb = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
+				ProductBean ProductBean = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
 						rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
 						rs.getString("pro_img"),rs.getString("pro_msg"));
 
-				list.add(pb);
+				ProductList.add(ProductBean);
 			}
 
 		} catch(ClassNotFoundException ex) {
@@ -90,7 +90,7 @@ public class ProductDao extends Dao{
 			close();
 		}
 
-		return list;
+		return ProductList;
 	}
 
 	public ArrayList<ProductBean> selectProName(String keyword){
@@ -103,11 +103,11 @@ public class ProductDao extends Dao{
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){
-				ProductBean pb = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
+				ProductBean ProductBean = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
 						rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
 						rs.getString("pro_img"),rs.getString("pro_msg"));
 
-				list.add(pb);
+				ProductList.add(ProductBean);
 			}
 
 		} catch(ClassNotFoundException ex) {
@@ -118,12 +118,12 @@ public class ProductDao extends Dao{
 			close();
 		}
 
-		return list;
+		return ProductList;
 	}
 
-	public ProductBean selectProCode(String pro_cd){
+	public ProductBean selectProCode(String proCd){
 
-		ProductBean pb = null;
+		ProductBean ProductBean = null;
 
 		try {
 			connection();
@@ -132,11 +132,11 @@ public class ProductDao extends Dao{
 					+ "from product p,category c "
 					+ "where p.pro_cd=? and p.cat_id=c.cat_id";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,pro_cd);
+			pstmt.setString(1,proCd);
 			rs = pstmt.executeQuery();
 
 			rs.next();
-			pb = new ProductBean(rs.getInt("p.pro_cd"),rs.getString("p.pro_name"),
+			ProductBean = new ProductBean(rs.getInt("p.pro_cd"),rs.getString("p.pro_name"),
 					rs.getInt("p.stock_no"),rs.getInt("p.pro_price"),rs.getInt("p.cat_id"),
 					rs.getString("p.pro_img"),rs.getString("p.pro_msg"),rs.getString("c.cat_name"));
 
@@ -148,17 +148,17 @@ public class ProductDao extends Dao{
 			close();
 		}
 
-		return pb;
+		return ProductBean;
 	}
 
-	public void updateStock (String pro_cd,String stock_no){
+	public void updateStock (String proCd,String stockNo){
 
 		try {
 			connection();
 			String query = "update product set stock_no=? where pro_cd=?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,stock_no);
-			pstmt.setString(2,pro_cd);
+			pstmt.setString(1,stockNo);
+			pstmt.setString(2,proCd);
 			pstmt.executeUpdate();
 
 		} catch(ClassNotFoundException ex) {

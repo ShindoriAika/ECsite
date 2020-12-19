@@ -18,43 +18,42 @@ public class ProductDetailServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int pro_cd = Integer.parseInt(request.getParameter("pro_cd"));
-		String pro_name = request.getParameter("pro_name");
-		int pro_price = Integer.parseInt(request.getParameter("pro_price"));
-		int stock_no = Integer.parseInt(request.getParameter("stock_no"));
+		int proCd = Integer.parseInt(request.getParameter("proCd"));
+		String proName = request.getParameter("proName");
+		int proPrice = Integer.parseInt(request.getParameter("proPrice"));
+		int stockNo = Integer.parseInt(request.getParameter("stockNo"));
 		int number = Integer.parseInt(request.getParameter("number"));
 
 		HttpSession session = request.getSession(false);
 
-		CartBean cb = (CartBean)session.getAttribute("cart");
-		ArrayList<CartProductBean> list = cb.getCartProList();
+		CartBean CartBean = (CartBean)session.getAttribute("cart");
+		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
 
-		CartProductBean cpb = new CartProductBean(pro_cd,pro_name,pro_price,stock_no,number);
-		list.add(cpb);
+		CartProductBean CartProBean = new CartProductBean(proCd,proName,proPrice,stockNo,number);
+		CartProList.add(CartProBean);
 
-//		for(CartBean c :list) {
-//			if(c == list.get(list.size()-1)){
+//		for(CartBean cb : CartProList) {
+//			if(cb == CartProList.get(CartproList.size()-1)){
 //				break;
-//			}else if(pro_cd == c.getPro_cd()) {
-//				c.setNumber(c.getNumber()+number);
-//				list.remove(list.size()-1);
+//			}else if(proCd == c.getProCd()) {
+//				cb.setNumber(c.getNumber()+number);
+//				CartProList.remove(CartProList.size()-1);
 //			}
 //		}
 
 		int total = 0;
 
-		for(CartProductBean c :list) {
-			total += (c.getPro_price())*(c.getNumber());
+		for(CartProductBean c : CartProList) {
+			total += (c.getProPrice())*(c.getNumber());
 		}
 
 		int totalAndTax = (int)(total * 1.1);
-		int tax = totalAndTax - total;
 
-		cb.setCartProList(list);
-		cb.setTax(tax);
-		cb.setTotal(totalAndTax);
+		CartBean.setCartProList(CartProList);
+		CartBean.setTotal(totalAndTax);
+		CartBean.setTax(totalAndTax - total);
 
-		session.setAttribute("cart", cb);
+		session.setAttribute("cart", CartBean);
 
 		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
 
