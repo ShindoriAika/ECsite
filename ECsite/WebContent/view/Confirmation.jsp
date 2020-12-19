@@ -8,7 +8,6 @@
 <title>購入画面</title>
 </head>
 <body>
-<% int total = 0; %>
 <h1>購入してよろしいでしょうか？？</h1>
 	<table>
 		<tr>

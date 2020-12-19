@@ -29,10 +29,6 @@ public class ProductDetailServlet extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		ArrayList<CartBean> list = (ArrayList<CartBean>)session.getAttribute("cartList");
 
-		if(list==null) {
-			list = new ArrayList<CartBean>();
-		}
-
 		CartBean cb = new CartBean(pro_cd,pro_name,pro_price,stock_no,number);
 		list.add(cb);
 

@@ -15,6 +15,7 @@
 			<th>商品名</th>
 			<th>単価</th>
 			<th>数量</th>
+			<th></th>
 		</tr>
 		<c:forEach var="cartList" items="${cartList}">
 			<tr>

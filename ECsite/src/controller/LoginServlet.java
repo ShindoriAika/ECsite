@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
+import model.CartBean;
 import model.UserBean;
 
 @WebServlet("/LoginServlet")
@@ -36,6 +37,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("userList",userList);
+			session.setAttribute("cartList", new ArrayList<CartBean>());
 			request.getRequestDispatcher("/CategoryServlet").forward(request,response);
 		}
 
