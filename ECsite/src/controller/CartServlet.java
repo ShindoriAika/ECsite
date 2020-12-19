@@ -13,33 +13,25 @@ import javax.servlet.http.HttpSession;
 import model.CartBean;
 import model.CartProductBean;
 
-@WebServlet("/ProductDetailServlet")
-public class ProductDetailServlet extends HttpServlet {
+@WebServlet("/CartServlet")
+public class CartServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int proCd = Integer.parseInt(request.getParameter("proCd"));
-		String proName = request.getParameter("proName");
-		int proPrice = Integer.parseInt(request.getParameter("proPrice"));
-		int stockNo = Integer.parseInt(request.getParameter("stockNo"));
-		int number = Integer.parseInt(request.getParameter("number"));
 
 		HttpSession session = request.getSession(false);
-
 		CartBean CartBean = (CartBean)session.getAttribute("cart");
+		CartProductBean CartProBean = null;
+
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
-
-		CartProductBean CartProBean = new CartProductBean(proCd,proName,proPrice,stockNo,number);
-		CartProList.add(CartProBean);
-
-//		for(CartProductBean cpb : CartProList) {
-//			if(cpb == CartProList.get(CartProList.size()-1)){
-//				break;
-//			}else if(proCd == cpb.getProCd()) {
-//				cpb.setNumber(cpb.getNumber()+number);
-//				CartProList.remove(CartProList.size()-1);
-//			}
-//		}
+		for(CartProductBean cpb : CartProList) {
+			if(cpb.getProCd()==proCd) {
+				CartProBean = cpb;
+			}
+		}
+		String proName = CartProBean.getProName();
+		CartProList.remove(CartProBean);
 
 		int total = 0;
 
@@ -54,9 +46,8 @@ public class ProductDetailServlet extends HttpServlet {
 		CartBean.setTax(totalAndTax - total);
 
 		session.setAttribute("cart", CartBean);
+		request.setAttribute("message",proName+"をカートから削除しました");
 
 		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
-
 	}
-
 }

@@ -8,10 +8,11 @@
 <title>カート画面</title>
 </head>
 <body>
-<% int total = 0; %>
 <h1>カート</h1>
+<p>${message}</p>
 	<table>
 		<tr>
+			<td></td>
 			<th>商品名</th>
 			<th>単価</th>
 			<th>数量</th>
@@ -19,6 +20,12 @@
 		</tr>
 		<c:forEach var="product" items="${cart.cartProList}">
 			<tr>
+				<td>
+					<form action="http://localhost:8080/ECsite/CartServlet" method="POST">
+						<input type="submit" value ="×">
+						<input type="hidden" name="proCd" value="${product.proCd}">
+					</form>
+				</td>
 				<td>${product.proName}</td>
 				<td>${product.proPrice}</td>
 				<td>${product.number}</td>
