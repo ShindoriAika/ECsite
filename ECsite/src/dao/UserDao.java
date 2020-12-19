@@ -1,30 +1,26 @@
 package dao;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import model.UserBean;
 
 public class UserDao extends Dao{
 
-	public ArrayList<UserBean> selectLogin(String login_cd,String login_pw){
+	public UserBean selectLogin(String loginCd,String loginPw){
 
-		ArrayList<UserBean> list = new ArrayList<>();
+		UserBean ub = null;
 
 		try {
 			connection();
 			String query = "select * from user where login_cd= ? and login_pw= ?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,login_cd);
-			pstmt.setString(2,login_pw);
+			pstmt.setString(1,loginCd);
+			pstmt.setString(2,loginPw);
 			rs = pstmt.executeQuery();
 
-			while(rs.next()){
-				UserBean ub = new UserBean(
-						rs.getInt("user_id"),rs.getString("login_cd"),rs.getString("login_pw"));
-
-				list.add(ub);
-			}
+			rs.next();
+			ub = new UserBean(
+				rs.getInt("user_id"),rs.getString("login_cd"),rs.getString("login_pw"));
 
 		} catch(ClassNotFoundException ex) {
 			ex.printStackTrace();
@@ -34,17 +30,17 @@ public class UserDao extends Dao{
 			close();
 		}
 
-		return list;
+		return ub;
 	}
 
-	public void insertAccount (String login_cd,String login_pw){
+	public void insertAccount (String loginCd,String loginPw){
 
 		try {
 			connection();
 			String query = "insert into user (login_cd,login_pw) values (?,?)";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,login_cd);
-			pstmt.setString(2,login_pw);
+			pstmt.setString(1,loginCd);
+			pstmt.setString(2,loginPw);
 			pstmt.executeUpdate();
 
 		} catch(ClassNotFoundException ex) {

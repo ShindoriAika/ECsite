@@ -1,48 +1,36 @@
 package model;
 
+import java.util.ArrayList;
+
 public class CartBean {
 
-	int pro_cd;
-	String pro_name;
-	int pro_price;
-	int stock_no;
-	int number;
+	int userId;
+	ArrayList<CartProductBean> cartProList;
+	int tax;
+	int total;
 
-	public CartBean() {
-
+	public int getUserId() {
+		return userId;
 	}
-
-	public CartBean(int pro_cd,String pro_name,int pro_price,int stock_no,int number) {
-		this.pro_cd = pro_cd;
-		this.pro_name = pro_name;
-		this.pro_price = pro_price;
-		this.stock_no = stock_no;
-		this.number = number;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-
-	public int getPro_cd() {
-		return pro_cd;
+	public ArrayList<CartProductBean> getCartProList() {
+		return cartProList;
 	}
-
-	public String getPro_name() {
-		return pro_name;
+	public void setCartProList(ArrayList<CartProductBean> cartProList) {
+		this.cartProList = cartProList;
 	}
-
-	public int getPro_price() {
-		return pro_price;
+	public int getTax() {
+		return tax;
 	}
-
-	public int getStock_no() {
-		return stock_no;
+	public void setTax(int tax) {
+		this.tax = tax;
 	}
-
-	public void setNumber(int number) {
-		this.number = number;
+	public int getTotal() {
+		return total;
 	}
-
-	public int getNumber() {
-		return number;
+	public void setTotal(int total) {
+		this.total = total;
 	}
-
-
 }
