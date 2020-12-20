@@ -48,7 +48,7 @@ public class SearchServlet extends HttpServlet {
 		}
 
 		if(ProductList.size()==0) {
-			request.setAttribute("errorMessage","検索結果がありません");
+			request.setAttribute("errorMessage2","検索結果がありません");
 
 		} else {
 			request.setAttribute("product",ProductList);

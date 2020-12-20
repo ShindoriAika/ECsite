@@ -58,5 +58,4 @@ public class ProductDetailServlet extends HttpServlet {
 		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
 
 	}
-
 }

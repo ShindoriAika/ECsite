@@ -3,39 +3,40 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>購入画面</title>
-</head>
-<body>
-<h1>購入してよろしいでしょうか？？</h1>
-	<table>
-		<tr>
-			<th>商品名</th>
-			<th>単価</th>
-			<th>数量</th>
-		</tr>
-		<c:forEach var="product" items="${cart.cartProList}">
+	<head>
+		<meta charset="UTF-8">
+		<title>購入画面</title>
+	</head>
+	<body>
+	<jsp:include page="Header.jsp"/>
+	<h1>購入してよろしいでしょうか？？</h1>
+		<table>
 			<tr>
-				<td>${product.proName}</td>
-				<td>${product.proPrice}</td>
-				<td>${product.number}</td>
+				<th>商品名</th>
+				<th>単価</th>
+				<th>数量</th>
 			</tr>
-		</c:forEach>
-		<tr>
-			<th colspan="2">消費税</th>
-			<td>${cart.tax}</td>
-		</tr>
-		<tr>
-			<th colspan="2">合計金額</th>
-			<td>${cart.total}</td>
-		</tr>
-	</table>
-	<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">
-		<input type="submit" value="いいえ">
-	</form>
-	<form action="http://localhost:8080/ECsite/ConfirmationServlet" method="POST">
-		<input type="submit" value="はい">
-	</form>
-</body>
+			<c:forEach var="product" items="${cart.cartProList}">
+				<tr>
+					<td>${product.proName}</td>
+					<td>${product.proPrice}</td>
+					<td>${product.number}</td>
+				</tr>
+			</c:forEach>
+			<tr>
+				<th colspan="2">消費税</th>
+				<td>${cart.tax}</td>
+			</tr>
+			<tr>
+				<th colspan="2">合計金額</th>
+				<td>${cart.total}</td>
+			</tr>
+		</table>
+		<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">
+			<input type="submit" value="いいえ">
+		</form>
+		<form action="http://localhost:8080/ECsite/ConfirmationServlet" method="POST">
+			<input type="submit" value="はい">
+		</form>
+	</body>
 </html>
