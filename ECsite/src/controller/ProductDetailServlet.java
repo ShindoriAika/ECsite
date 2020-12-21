@@ -31,15 +31,19 @@ public class ProductDetailServlet extends HttpServlet {
 
 		CartProductBean CartProBean = new CartProductBean(proCd,proName,proPrice,stockNo,number);
 		CartProList.add(CartProBean);
+		boolean flg = false;
 
-//		for(CartProductBean cpb : CartProList) {
-//			if(cpb == CartProList.get(CartProList.size()-1)){
-//				break;
-//			}else if(proCd == cpb.getProCd()) {
-//				cpb.setNumber(cpb.getNumber()+number);
-//				CartProList.remove(CartProList.size()-1);
-//			}
-//		}
+		for(CartProductBean cpb : CartProList) {
+			if(cpb == CartProList.get(CartProList.size()-1)){
+				break;
+			}else if(proCd == cpb.getProCd()) {
+				cpb.setNumber(cpb.getNumber()+number);
+				flg = true;
+			}
+		}
+		if(flg) {
+			CartProList.remove(CartProList.size()-1);
+		}
 
 		int total = 0;
 

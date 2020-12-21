@@ -19,7 +19,7 @@ public class CategoryDao extends Dao{
 
 			while(rs.next()){
 				CategoryBean CategoryBean = new CategoryBean(
-						rs.getInt("catId"),rs.getString("catName"));
+						rs.getInt("cat_id"),rs.getString("cat_name"));
 
 				CategoryList.add(CategoryBean);
 			}
