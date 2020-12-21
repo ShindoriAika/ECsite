@@ -17,11 +17,13 @@
 				<th>商品名</th>
 				<th>単価</th>
 				<th>数量</th>
+				<td></td>
+				<td></td>
 			</tr>
 			<c:forEach var="product" items="${cart.cartProList}">
 				<tr>
 					<td>
-						<form action="http://localhost:8080/ECsite/CartServlet" method="POST">
+						<form action="http://localhost:8080/ECsite/CartDeleteServlet" method="POST">
 							<input type="submit" value ="×">
 							<input type="hidden" name="proCd" value="${product.proCd}">
 						</form>
@@ -29,15 +31,20 @@
 					<td>${product.proName}</td>
 					<td>${product.proPrice}</td>
 					<td>${product.number}</td>
+					<form action="http://localhost:8080/ECsite/CartChangeServlet" method="POST">
+						<input type="hidden" name="proCd" value="${product.proCd}">
+						<td><input type="number" name="number" value="0" min="1" max="${product.stockNo}"></td>
+						<td><input type="submit" value="変更"></td>
+					</form>
 				</tr>
 			</c:forEach>
 			<tr>
 				<th colspan="2">消費税</th>
-				<td>${cart.tax}</td>
+				<td colspan="4">${cart.tax}</td>
 			</tr>
 			<tr>
 				<th colspan="2">合計金額</th>
-				<td>${cart.total}</td>
+				<td colspan="4">${cart.total}</td>
 			</tr>
 		</table>
 		<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">
