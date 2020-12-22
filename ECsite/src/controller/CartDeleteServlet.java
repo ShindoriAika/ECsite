@@ -22,16 +22,16 @@ public class CartDeleteServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		CartBean CartBean = (CartBean)session.getAttribute("cart");
-		CartProductBean CartProBean = null;
+		String proName = null;
 
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
 		for(CartProductBean cpb : CartProList) {
 			if(cpb.getProCd()==proCd) {
-				CartProBean = cpb;
+				proName = cpb.getProName();
+				CartProList.remove(cpb);
+				break;
 			}
 		}
-		String proName = CartProBean.getProName();
-		CartProList.remove(CartProBean);
 
 		int total = 0;
 
