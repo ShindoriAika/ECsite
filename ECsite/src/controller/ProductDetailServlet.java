@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,18 +32,27 @@ public class ProductDetailServlet extends HttpServlet {
 
 		CartProductBean CartProBean = new CartProductBean(proCd,proName,proPrice,stockNo,number);
 		CartProList.add(CartProBean);
-		boolean flg = false;
 
-		for(CartProductBean cpb : CartProList) {
-			if(cpb == CartProList.get(CartProList.size()-1)){
-				break;
-			}else if(proCd == cpb.getProCd()) {
-				cpb.setNumber(cpb.getNumber()+number);
-				flg = true;
+		HashMap<Integer,ArrayList<CartProductBean>> productMap = new HashMap<>();
+		for(CartProductBean cpb:CartProList) {
+			if(productMap.containsKey(cpb.getProCd())) {
+				ArrayList<CartProductBean> cpl = productMap.get(cpb.getProCd());
+				cpl.add(cpb);
+				productMap.put(cpb.getProCd(),cpl);
+			}else {
+				ArrayList<CartProductBean> cpl = new ArrayList<>();
+				cpl.add(cpb);
+				productMap.put(cpb.getProCd(),cpl);
 			}
 		}
-		if(flg) {
-			CartProList.remove(CartProList.size()-1);
+
+		CartProList = new ArrayList<>();
+		for(ArrayList<CartProductBean> cbl:productMap.values()) {
+			int proNumber = 0;
+			for(CartProductBean cpb:cbl) {
+				cbl.get(0).setNumber(proNumber+=cpb.getNumber());
+			}
+			CartProList.add(cbl.get(0));
 		}
 
 		int total = 0;

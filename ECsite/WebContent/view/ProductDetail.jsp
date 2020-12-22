@@ -12,7 +12,7 @@
 		<h1>商品紹介</h1>
 		<table>
 			<tr>
-				<td colspan="2">${product.proImg}</td>
+				<td colspan="2"><img src="./img/${product.proImg}"></td>
 			</tr>
 			<tr>
 				<th>商品名</th>

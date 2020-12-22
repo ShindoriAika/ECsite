@@ -39,12 +39,12 @@
 				</tr>
 			</c:forEach>
 			<tr>
-				<th colspan="2">消費税</th>
-				<td colspan="4">${cart.tax}</td>
+				<th colspan="3">消費税</th>
+				<td colspan="3">${cart.tax}</td>
 			</tr>
 			<tr>
-				<th colspan="2">合計金額</th>
-				<td colspan="4">${cart.total}</td>
+				<th colspan="3">合計金額</th>
+				<td colspan="3">${cart.total}</td>
 			</tr>
 		</table>
 		<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">

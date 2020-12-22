@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.UserDao;
 
-/**
- * Servlet implementation class MakeAccountServlet
- */
 @WebServlet("/MakeAccountServlet")
 public class MakeAccountServlet extends HttpServlet {
 
@@ -21,9 +18,19 @@ public class MakeAccountServlet extends HttpServlet {
 		String loginCd = request.getParameter("loginCd");
 		String loginPw = request.getParameter("loginPw");
 
-		new UserDao().insertAccount(loginCd,loginPw);
+		if(loginCd.length()>50||loginPw.length()>50) {
+			request.setAttribute("message","50文字以内で入力してください");
+			request.getRequestDispatcher("/view/MakeAccount.jsp").forward(request,response);
 
-		request.setAttribute("message","登録できました");
-		request.getRequestDispatcher("/view/MakeAccount.jsp").forward(request,response);
+		}else if(loginCd==""||loginPw=="") {
+			request.setAttribute("message","入力してください");
+			request.getRequestDispatcher("/view/MakeAccount.jsp").forward(request,response);
+
+		}else {
+			new UserDao().insertAccount(loginCd,loginPw);
+
+			request.setAttribute("errorMessage","登録できました");
+			request.getRequestDispatcher("/view/Login.jsp").forward(request,response);
+		}
 	}
 }
