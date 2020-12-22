@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.CartBean;
 import model.CartProductBean;
+import util.Price;
 
 @WebServlet("/ProductDetailServlet")
 public class ProductDetailServlet extends HttpServlet {
@@ -55,17 +56,8 @@ public class ProductDetailServlet extends HttpServlet {
 			CartProList.add(cbl.get(0));
 		}
 
-		int total = 0;
-
-		for(CartProductBean c : CartProList) {
-			total += (c.getProPrice())*(c.getNumber());
-		}
-
-		int totalAndTax = (int)(total * 1.1);
-
+		Price.price(CartBean);
 		CartBean.setCartProList(CartProList);
-		CartBean.setTotal(totalAndTax);
-		CartBean.setTax(totalAndTax - total);
 
 		session.setAttribute("cart", CartBean);
 
