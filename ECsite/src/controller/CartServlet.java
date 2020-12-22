@@ -12,42 +12,78 @@ import javax.servlet.http.HttpSession;
 
 import model.CartBean;
 import model.CartProductBean;
+import util.Price;
 
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int proCd = Integer.parseInt(request.getParameter("proCd"));
+		String flg = request.getParameter("flg");
+		String proCdStr = request.getParameter("proCd");
+		String numberStr = request.getParameter("number");
 
 		HttpSession session = request.getSession(false);
 		CartBean CartBean = (CartBean)session.getAttribute("cart");
-		CartProductBean CartProBean = null;
-
+		String proName = null;
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
-		for(CartProductBean cpb : CartProList) {
-			if(cpb.getProCd()==proCd) {
-				CartProBean = cpb;
-			}
+
+		switch(flg) {
+			case "1":
+				cartView(request,response);
+				break;
+
+			case "2":
+				int proCd = Integer.parseInt(proCdStr);
+				for(CartProductBean cpb : CartProList) {
+					if(cpb.getProCd()==proCd) {
+						proName = cpb.getProName();
+						CartProList.remove(cpb);
+						break;
+					}
+				}
+
+				Price.price(CartBean);
+				CartBean.setCartProList(CartProList);
+
+				session.setAttribute("cart", CartBean);
+				request.setAttribute("message",proName+"をカートから削除しました");
+
+				request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+				break;
+
+			case "3":
+				int proCd = Integer.parseInt(proCdStr);
+				int number = Integer.parseInt(numberStr);
+				for(CartProductBean cpb : CartProList) {
+					if(cpb.getProCd()==proCd) {
+						cpb.setNumber(number);
+						proName = cpb.getProName();
+					}
+				}
+
+				Price.price(CartBean);
+				CartBean.setCartProList(CartProList);
+
+				session.setAttribute("cart", CartBean);
+				request.setAttribute("message",proName+"の購入数を変更しました");
+
+				request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+				break;
+
+			case "4":
+
+				break;
 		}
-		String proName = CartProBean.getProName();
-		CartProList.remove(CartProBean);
+	}
 
-		int total = 0;
-
-		for(CartProductBean c : CartProList) {
-			total += (c.getProPrice())*(c.getNumber());
+	private void cartView(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if(((CartBean)session.getAttribute("cart")).getCartProList().size()==0) {
+			request.setAttribute("errorMessage1","カートに商品が入っていません");
+			request.getRequestDispatcher("/CategoryServlet").forward(request,response);
 		}
-
-		int totalAndTax = (int)(total * 1.1);
-
-		CartBean.setCartProList(CartProList);
-		CartBean.setTotal(totalAndTax);
-		CartBean.setTax(totalAndTax - total);
-
-		session.setAttribute("cart", CartBean);
-		request.setAttribute("message",proName+"をカートから削除しました");
-
 		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
 	}
+
 }

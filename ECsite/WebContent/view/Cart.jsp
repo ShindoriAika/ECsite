@@ -23,16 +23,18 @@
 			<c:forEach var="product" items="${cart.cartProList}">
 				<tr>
 					<td>
-						<form action="http://localhost:8080/ECsite/CartDeleteServlet" method="POST">
+						<form action="http://localhost:8080/ECsite/CartServlet" method="POST">
 							<input type="submit" value ="×">
 							<input type="hidden" name="proCd" value="${product.proCd}">
+							<input type="hidden" name="flg" value="2">
 						</form>
 					</td>
 					<td>${product.proName}</td>
 					<td>${product.proPrice}</td>
 					<td>${product.number}</td>
-					<form action="http://localhost:8080/ECsite/CartChangeServlet" method="POST">
+					<form action="http://localhost:8080/ECsite/CartServlet" method="POST">
 						<input type="hidden" name="proCd" value="${product.proCd}">
+						<input type="hidden" name="flg" value="3">
 						<td><input type="number" name="number" value="0" min="1" max="${product.stockNo}"></td>
 						<td><input type="submit" value="変更"></td>
 					</form>

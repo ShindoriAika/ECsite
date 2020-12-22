@@ -7,8 +7,9 @@
 </head>
 <body>
 	<header>
-		<form action="http://localhost:8080/ECsite/CartViewServlet" method="POST">
+		<form action="http://localhost:8080/ECsite/CartServlet" method="POST">
 			<input type="submit" value="カート">
+			<input type="hidden" name="flg" value="1">
 		</form>
 		<form action="http://localhost:8080/ECsite/LogoutServlet" method="POST">
 			<input type="submit" value="ログアウト">

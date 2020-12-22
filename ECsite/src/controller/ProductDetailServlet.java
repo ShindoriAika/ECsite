@@ -31,19 +31,18 @@ public class ProductDetailServlet extends HttpServlet {
 		CartBean CartBean = (CartBean)session.getAttribute("cart");
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
 
-		CartProductBean CartProBean = new CartProductBean(proCd,proName,proPrice,stockNo,number);
-		CartProList.add(CartProBean);
+		CartProList.add(new CartProductBean(proCd,proName,proPrice,stockNo,number));
 
 		HashMap<Integer,ArrayList<CartProductBean>> productMap = new HashMap<>();
-		for(CartProductBean cpb:CartProList) {
-			if(productMap.containsKey(cpb.getProCd())) {
-				ArrayList<CartProductBean> cpl = productMap.get(cpb.getProCd());
-				cpl.add(cpb);
-				productMap.put(cpb.getProCd(),cpl);
+		for(CartProductBean CartProBean:CartProList) {
+			if(productMap.containsKey(CartProBean.getProCd())) {
+				ArrayList<CartProductBean> list = productMap.get(CartProBean.getProCd());
+				list.add(CartProBean);
+				productMap.put(CartProBean.getProCd(),list);
 			}else {
-				ArrayList<CartProductBean> cpl = new ArrayList<>();
-				cpl.add(cpb);
-				productMap.put(cpb.getProCd(),cpl);
+				ArrayList<CartProductBean> list = new ArrayList<>();
+				list.add(CartProBean);
+				productMap.put(CartProBean.getProCd(),list);
 			}
 		}
 
