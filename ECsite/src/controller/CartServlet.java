@@ -67,7 +67,7 @@ public class CartServlet extends HttpServlet {
 			}
 		}
 
-		Price.price(CartBean);
+		Price.priceCalculation(CartBean);
 		CartBean.setCartProList(CartProList);
 
 		session.setAttribute("cart", CartBean);
@@ -93,7 +93,7 @@ public class CartServlet extends HttpServlet {
 			}
 		}
 
-		Price.price(CartBean);
+		Price.priceCalculation(CartBean);
 		CartBean.setCartProList(CartProList);
 
 		session.setAttribute("cart", CartBean);

@@ -55,7 +55,7 @@ public class ProductDetailServlet extends HttpServlet {
 			CartProList.add(cbl.get(0));
 		}
 
-		Price.price(CartBean);
+		Price.priceCalculation(CartBean);
 		CartBean.setCartProList(CartProList);
 
 		session.setAttribute("cart", CartBean);

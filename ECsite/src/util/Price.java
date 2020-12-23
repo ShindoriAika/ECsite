@@ -5,17 +5,17 @@ import model.CartProductBean;
 
 public class Price {
 
-	public static void price(CartBean CartBean) {
-		int total = 0;
+	public static void priceCalculation(CartBean CartBean) {
+		int totalPrice = 0;
 
 		for(CartProductBean c : CartBean.getCartProList()) {
-			total += (c.getProPrice())*(c.getNumber());
+			totalPrice += (c.getProPrice())*(c.getNumber());
 		}
 
-		int totalAndTax = (int)(total * 1.1);
+		int totalTaxIncludedPrice = (int)(totalPrice * 1.1);
 
-		CartBean.setTotal(totalAndTax);
-		CartBean.setTax(totalAndTax - total);
+		CartBean.setTotal(totalTaxIncludedPrice);
+		CartBean.setTax(totalTaxIncludedPrice - totalPrice);
 	}
 
 }
