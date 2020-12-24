@@ -11,7 +11,7 @@ public class Dao {
 
 	String url = "jdbc:mysql://localhost/EC";
 	String id = "root";
-	String pass = "";
+	String pass = "1qaz2wSX?";
 	Connection conn = null;
 	Statement stmt = null;
 	PreparedStatement pstmt = null;

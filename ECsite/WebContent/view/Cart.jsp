@@ -52,9 +52,8 @@
 		<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">
 			<input type="submit" value="買い物を続ける">
 		</form>
-		<form action="http://localhost:8080/ECsite/CartServlet" method="POST">
+		<form action="http://localhost:8080/ECsite/view/Confirmation.jsp" method="POST">
 			<input type="submit" value="購入">
-			<input type="hidden" name="flg" value="4">
 		</form>
 	</body>
 </html>
