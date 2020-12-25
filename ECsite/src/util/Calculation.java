@@ -5,6 +5,8 @@ import model.CartProductBean;
 
 public class Calculation {
 
+	static final double TAX = 1.1;
+
 	public static void priceCalculation(CartBean CartBean) {
 		int totalPrice = 0;
 
@@ -12,7 +14,7 @@ public class Calculation {
 			totalPrice += (c.getProPrice())*(c.getNumber());
 		}
 
-		int totalTaxIncludedPrice = (int)(totalPrice * 1.1);
+		int totalTaxIncludedPrice = (int)(totalPrice * TAX);
 
 		CartBean.setTotal(totalTaxIncludedPrice);
 		CartBean.setTax(totalTaxIncludedPrice - totalPrice);

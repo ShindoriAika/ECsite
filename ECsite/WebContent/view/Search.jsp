@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,model.CategoryBean,model.ProductBean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -33,8 +34,13 @@
 				<c:forEach var="product" items="${product}">
 					<tr>
 						<td><a href="/ECsite/SearchServlet?proCd=${product.proCd}">${product.proName}</a></td>
-						<td>${product.proPrice}</td>
-						<td>${product.stockNo}</td>
+						<td><fmt:formatNumber value="${product.proPrice}" type="currency" maxFractionDigits="0" currencySymbol="\\" /></td>
+						<c:if test="${product.stockNo != 0}">
+							<td>${product.stockNo}</td>
+						</c:if>
+						<c:if test="${product.stockNo == 0}">
+							<td>SOLD OUT</td>
+						</c:if>
 					</tr>
 				</c:forEach>
 			</table>

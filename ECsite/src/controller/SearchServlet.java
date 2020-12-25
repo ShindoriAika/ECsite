@@ -15,6 +15,8 @@ import model.ProductBean;
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
 
+	static final int SEARCH_MAX_NUMBER = 10;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -31,7 +33,7 @@ public class SearchServlet extends HttpServlet {
 		String catName = request.getParameter("catName");
 		String keyword = request.getParameter("keyword");
 		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-		int start = pageNumber*10 -10;
+		int start = pageNumber*SEARCH_MAX_NUMBER - SEARCH_MAX_NUMBER;
 		System.out.println(start);
 
 		ProductDao ProductDao = new ProductDao();
@@ -59,7 +61,7 @@ public class SearchServlet extends HttpServlet {
 			request.setAttribute("errorMessage2","検索結果がありません");
 
 		} else {
-			count/=10;
+			count/=SEARCH_MAX_NUMBER;
 			request.setAttribute("count", Math.ceil(count));
 			request.setAttribute("product",ProductList);
 			request.setAttribute("catName",catName);
