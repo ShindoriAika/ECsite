@@ -32,10 +32,10 @@
 				<td>${cart.total}</td>
 			</tr>
 		</table>
-		<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">
+		<form action="/CategoryServlet" method="POST">
 			<input type="submit" value="いいえ">
 		</form>
-		<form action="http://localhost:8080/ECsite/ConfirmationServlet" method="POST">
+		<form action="/ConfirmationServlet" method="POST">
 			<input type="submit" value="はい">
 		</form>
 	</body>

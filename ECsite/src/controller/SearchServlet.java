@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -62,7 +60,7 @@ public class SearchServlet extends HttpServlet {
 
 		} else {
 			count/=10;
-			request.setAttribute("count", new BigDecimal(String.valueOf(count)).setScale(0, RoundingMode.UP).doubleValue());
+			request.setAttribute("count", Math.ceil(count));
 			request.setAttribute("product",ProductList);
 			request.setAttribute("catName",catName);
 			request.setAttribute("keyword",keyword);

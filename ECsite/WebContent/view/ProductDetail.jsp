@@ -35,7 +35,7 @@
 				<td>${product.proMsg}</td>
 			</tr>
 		</table>
-		<form action="http://localhost:8080/ECsite/ProductDetailServlet" method="POST">
+		<form action="/ProductDetailServlet" method="POST">
 			<input type="number" name="number" value="0" min="1" max="${product.stockNo}">
 			<input type="hidden" name="proCd" value="${product.proCd}">
 			<input type="hidden" name="proName" value="${product.proName}">
@@ -43,7 +43,7 @@
 			<input type="hidden" name="stockNo" value="${product.stockNo}">
 			<input type="submit" value="カートへ">
 		</form>
-		<form action="http://localhost:8080/ECsite/CategoryServlet" method="POST">
+		<form action="/CategoryServlet" method="POST">
 			<input type="submit" value="もどる">
 		</form>
 	</body>

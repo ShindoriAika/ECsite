@@ -32,14 +32,14 @@
 				</tr>
 				<c:forEach var="product" items="${product}">
 					<tr>
-						<td><a href="http://localhost:8080/ECsite/SearchServlet?proCd=${product.proCd}">${product.proName}</a></td>
+						<td><a href="/SearchServlet?proCd=${product.proCd}">${product.proName}</a></td>
 						<td>${product.proPrice}</td>
 						<td>${product.stockNo}</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<c:forEach begin="1" end="${count}" step="1" varStatus="status">
-				<form action="http://localhost:8080/ECsite/SearchServlet" method="post">
+				<form action="/SearchServlet" method="post">
 					<input type="submit" value="${status.index}">
 					<input type="hidden" name="pageNumber" value="${status.index}">
 					<input type="hidden" name="catName" value="${catName}">
