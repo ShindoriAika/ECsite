@@ -217,6 +217,30 @@ public class ProductDao extends Dao{
 		return ProductList;
 	}
 
+	public int selectStock(int proCd) {
+		int stockNo = 0;
+
+		try {
+			connection();
+			String query = "select stock_no from product where pro_cd=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,proCd);
+			rs = pstmt.executeQuery();
+
+			rs.next();
+			stockNo = rs.getInt("stock_no");
+
+		} catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return stockNo;
+	}
+
 	public ProductBean selectProCode(String proCd){
 
 		ProductBean ProductBean = null;

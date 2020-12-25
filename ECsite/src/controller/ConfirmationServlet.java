@@ -14,6 +14,7 @@ import dao.ProductDao;
 import dao.SalesDao;
 import model.CartBean;
 import model.CartProductBean;
+import util.Calculation;
 
 @WebServlet("/ConfirmationServlet")
 public class ConfirmationServlet extends HttpServlet {
@@ -22,12 +23,23 @@ public class ConfirmationServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		CartBean CartBean = (CartBean)session.getAttribute("cart");
+		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
+		ProductDao ProductDao = new ProductDao();
 
-		for(CartProductBean CartProBean : CartBean.getCartProList()) {
-			int stockNo = (CartProBean.getStockNo())-(CartProBean.getNumber());
-			new ProductDao().updateStock(Integer.toString(CartProBean.getProCd()),Integer.toString(stockNo));
+		for(CartProductBean CartProBean : CartProList) {
+			if(ProductDao.selectStock(CartProBean.getProCd())!=0) {
+				int stockNo = (CartProBean.getStockNo())-(CartProBean.getNumber());
+				ProductDao.updateStock(Integer.toString(CartProBean.getProCd()),Integer.toString(stockNo));
 
-			new SalesDao().insertSales(CartBean.getUserId(),CartProBean.getProCd(),CartProBean.getProPrice());
+				new SalesDao().insertSales(CartBean.getUserId(),CartProBean.getProCd(),CartProBean.getProPrice());
+			}else {
+				CartProList.remove(CartProBean);
+				Calculation.priceCalculation(CartBean);
+				CartBean.setCartProList(CartProList);
+				session.setAttribute("cart", CartBean);
+				request.setAttribute("message","在庫がなくなったため、"+CartProBean.getProName()+"をカートから削除しました");
+				request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+			}
 		}
 
 		CartBean.setCartProList(new ArrayList<>());
