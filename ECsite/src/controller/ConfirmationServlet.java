@@ -19,6 +19,22 @@ import util.Calculation;
 @WebServlet("/ConfirmationServlet")
 public class ConfirmationServlet extends HttpServlet {
 
+	String proName = null;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String flg = request.getParameter("flg");
+
+		switch(flg) {
+		case "1":
+			request.setAttribute("message","在庫がなくなったため、"+proName+"をカートから削除しました");
+			request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+			break;
+		case "2":
+			request.getRequestDispatcher("/view/Complete.jsp").forward(request,response);
+			break;
+		}
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
@@ -37,14 +53,14 @@ public class ConfirmationServlet extends HttpServlet {
 				Calculation.priceCalculation(CartBean);
 				CartBean.setCartProList(CartProList);
 				session.setAttribute("cart", CartBean);
-				request.setAttribute("message","在庫がなくなったため、"+CartProBean.getProName()+"をカートから削除しました");
-				request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+				proName = CartProBean.getProName();
+				response.sendRedirect("/ECsite/ConfirmationServlet?flg=1");
 			}
 		}
 
 		CartBean.setCartProList(new ArrayList<>());
 		session.setAttribute("cart",CartBean);
 
-		request.getRequestDispatcher("/view/Complete.jsp").forward(request,response);
+		response.sendRedirect("/ECsite/ConfirmationServlet?flg=2");
 	}
 }

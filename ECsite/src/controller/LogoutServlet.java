@@ -13,6 +13,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/view/Login.jsp").forward(request,response);
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
@@ -20,6 +24,6 @@ public class LogoutServlet extends HttpServlet {
 			session.invalidate();
 		}
 
-		request.getRequestDispatcher("/view/Login.jsp").forward(request,response);
+		response.sendRedirect("/ECsite/LogoutServlet");
 	}
 }

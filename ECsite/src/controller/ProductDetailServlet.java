@@ -18,6 +18,10 @@ import util.Calculation;
 @WebServlet("/ProductDetailServlet")
 public class ProductDetailServlet extends HttpServlet {
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int proCd = Integer.parseInt(request.getParameter("proCd"));
@@ -60,7 +64,6 @@ public class ProductDetailServlet extends HttpServlet {
 
 		session.setAttribute("cart", CartBean);
 
-		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
-
+		response.sendRedirect("/ECsite/ProductDetailServlet");
 	}
 }

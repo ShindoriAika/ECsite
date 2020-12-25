@@ -13,6 +13,11 @@ import dao.UserDao;
 @WebServlet("/MakeAccountServlet")
 public class MakeAccountServlet extends HttpServlet {
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("errorMessage","登録できました");
+		request.getRequestDispatcher("/view/Login.jsp").forward(request,response);
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String loginCd = request.getParameter("loginCd");
@@ -28,9 +33,7 @@ public class MakeAccountServlet extends HttpServlet {
 
 		}else {
 			new UserDao().insertAccount(loginCd,loginPw);
-
-			request.setAttribute("errorMessage","登録できました");
-			request.getRequestDispatcher("/view/Login.jsp").forward(request,response);
+			response.sendRedirect("/ECsite/MakeAccountServlet");
 		}
 	}
 }

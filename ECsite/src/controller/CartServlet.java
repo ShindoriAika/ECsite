@@ -17,6 +17,23 @@ import util.Calculation;
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
 
+	String proName = null;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String flg = request.getParameter("flg");
+
+		switch(flg) {
+		case "1":
+			request.setAttribute("message",proName+"をカートから削除しました");
+			request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+			break;
+		case "2":
+			request.setAttribute("message",proName+"の購入数を変更しました");
+			request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+			break;
+		}
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String flg = request.getParameter("flg");
@@ -57,7 +74,6 @@ public class CartServlet extends HttpServlet {
 		CartBean CartBean = (CartBean)session.getAttribute("cart");
 
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
-		String proName = null;
 
 		for(CartProductBean cpb : CartProList) {
 			if(cpb.getProCd()==proCd) {
@@ -71,9 +87,7 @@ public class CartServlet extends HttpServlet {
 		CartBean.setCartProList(CartProList);
 
 		session.setAttribute("cart", CartBean);
-		request.setAttribute("message",proName+"をカートから削除しました");
-
-		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+		response.sendRedirect("/ECsite/CartServlet?flg=1");
 	}
 
 	private void cartChange(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
@@ -84,7 +98,6 @@ public class CartServlet extends HttpServlet {
 		CartBean CartBean = (CartBean)session.getAttribute("cart");
 
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
-		String proName = null;
 
 		for(CartProductBean cpb : CartProList) {
 			if(cpb.getProCd()==proCd) {
@@ -97,9 +110,7 @@ public class CartServlet extends HttpServlet {
 		CartBean.setCartProList(CartProList);
 
 		session.setAttribute("cart", CartBean);
-		request.setAttribute("message",proName+"の購入数を変更しました");
-
-		request.getRequestDispatcher("/view/Cart.jsp").forward(request,response);
+		response.sendRedirect("/ECsite/CartServlet?flg=2");
 	}
 
 	private void cartNo(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
@@ -111,5 +122,4 @@ public class CartServlet extends HttpServlet {
 			request.getRequestDispatcher("/view/Confirmation.jsp").forward(request,response);
 		}
 	}
-
 }
