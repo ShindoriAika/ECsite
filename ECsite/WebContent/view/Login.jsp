@@ -9,14 +9,14 @@
 	<body>
 		<h1>ログイン</h1>
 		<p>${errorMessage}</p>
-		<form action="/LoginServlet" method="post">
+		<form action="/ECsite/LoginServlet" method="post">
 			名前<input type="text" name="loginCd"><br>
 			パスワード<input type="password" name="loginPw"><br>
 
 			<input type="submit" value="ログイン">
 		</form>
 
-		<form action="/view/MakeAccount.jsp" method="post">
+		<form action="/ECsite/view/MakeAccount.jsp" method="post">
 			<input type="submit" value="アカウント作成">
 		</form>
 	</body>

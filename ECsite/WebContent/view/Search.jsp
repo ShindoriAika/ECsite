@@ -12,7 +12,7 @@
 		<p>${errorMessage1}</p>
 		<h1>検索</h1>
 		<p>${errorMessage2}</p>
-		<form action="http://localhost:8080/ECsite/SearchServlet" method="post">
+		<form action="/ECsite/SearchServlet" method="post">
 			<select name="catName">
 				<option value="">すべて</option>
 				<c:forEach var="category" items="${category}">
@@ -32,14 +32,14 @@
 				</tr>
 				<c:forEach var="product" items="${product}">
 					<tr>
-						<td><a href="/SearchServlet?proCd=${product.proCd}">${product.proName}</a></td>
+						<td><a href="/ECsite/SearchServlet?proCd=${product.proCd}">${product.proName}</a></td>
 						<td>${product.proPrice}</td>
 						<td>${product.stockNo}</td>
 					</tr>
 				</c:forEach>
 			</table>
 			<c:forEach begin="1" end="${count}" step="1" varStatus="status">
-				<form action="/SearchServlet" method="post">
+				<form action="/ECsite/SearchServlet" method="post">
 					<input type="submit" value="${status.index}">
 					<input type="hidden" name="pageNumber" value="${status.index}">
 					<input type="hidden" name="catName" value="${catName}">

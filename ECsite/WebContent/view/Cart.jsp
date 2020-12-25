@@ -23,7 +23,7 @@
 			<c:forEach var="product" items="${cart.cartProList}">
 				<tr>
 					<td>
-						<form action="/CartServlet" method="POST">
+						<form action="/ECsite/CartServlet" method="POST">
 							<input type="submit" value ="×">
 							<input type="hidden" name="proCd" value="${product.proCd}">
 							<input type="hidden" name="flg" value="2">
@@ -32,7 +32,7 @@
 					<td>${product.proName}</td>
 					<td>${product.proPrice}</td>
 					<td>${product.number}</td>
-					<form action="/CartServlet" method="POST">
+					<form action="/ECsite/CartServlet" method="POST">
 						<input type="hidden" name="proCd" value="${product.proCd}">
 						<input type="hidden" name="flg" value="3">
 						<td><input type="number" name="number" value="0" min="1" max="${product.stockNo}"></td>
@@ -49,10 +49,10 @@
 				<td colspan="3">${cart.total}</td>
 			</tr>
 		</table>
-		<form action="/CategoryServlet" method="POST">
+		<form action="/ECsite/CategoryServlet" method="POST">
 			<input type="submit" value="買い物を続ける">
 		</form>
-		<form action="/view/Confirmation.jsp" method="POST">
+		<form action="/ECsite/view/Confirmation.jsp" method="POST">
 			<input type="submit" value="購入">
 		</form>
 	</body>
