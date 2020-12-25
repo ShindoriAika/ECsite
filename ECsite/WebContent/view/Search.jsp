@@ -19,26 +19,33 @@
 					<option value="${category.catId}">${category.catName}</option>
 				</c:forEach>
 			</select>
-
+			<input type="hidden" name="pageNumber" value="1">
 			<input type="text" name="keyword">
 			<input type="submit" value="検索">
-
-			<c:if test="${not empty product}">
-				<table>
-					<tr>
-						<td>商品名</td>
-						<td>価格</td>
-						<td>在庫</td>
-					</tr>
-					<c:forEach var="product" items="${product}">
-						<tr>
-							<td><a href="http://localhost:8080/ECsite/SearchServlet?proCd=${product.proCd}">${product.proName}</a></td>
-							<td>${product.proPrice}</td>
-							<td>${product.stockNo}</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
 		</form>
+		<c:if test="${not empty product}">
+			<table>
+				<tr>
+					<td>商品名</td>
+					<td>価格</td>
+					<td>在庫</td>
+				</tr>
+				<c:forEach var="product" items="${product}">
+					<tr>
+						<td><a href="http://localhost:8080/ECsite/SearchServlet?proCd=${product.proCd}">${product.proName}</a></td>
+						<td>${product.proPrice}</td>
+						<td>${product.stockNo}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<c:forEach begin="1" end="${count}" step="1" varStatus="status">
+				<form action="http://localhost:8080/ECsite/SearchServlet" method="post">
+					<input type="submit" value="${status.index}">
+					<input type="hidden" name="pageNumber" value="${status.index}">
+					<input type="hidden" name="catName" value="${catName}">
+					<input type="hidden" name="keyword" value="${keyword}">
+				</form>
+			</c:forEach>
+		</c:if>
 	</body>
 </html>

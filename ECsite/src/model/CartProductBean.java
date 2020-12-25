@@ -2,11 +2,11 @@ package model;
 
 public class CartProductBean {
 
-	int proCd;
-	String proName;
-	int proPrice;
-	int stockNo;
-	int number;
+	private int proCd;
+	private String proName;
+	private int proPrice;
+	private int stockNo;
+	private int number;
 
 	public CartProductBean() {
 

@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -30,28 +32,41 @@ public class SearchServlet extends HttpServlet {
 
 		String catName = request.getParameter("catName");
 		String keyword = request.getParameter("keyword");
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		int start = pageNumber*10 -10;
+		System.out.println(start);
 
 		ProductDao ProductDao = new ProductDao();
 		ArrayList<ProductBean> ProductList = new ArrayList<>();
+		double count = 0.0;
 
 		if(catName=="" && keyword=="") {
-			ProductList = ProductDao.selectAll();
+			count = ProductDao.countAll();
+			ProductList = ProductDao.selectAll(start);
 
 		} else if(catName!="" && keyword!="") {
-			ProductList = ProductDao.selectCatAndWord(Integer.parseInt(catName),keyword);
+			count = ProductDao.countCatAndWord(Integer.parseInt(catName),keyword);
+			ProductList = ProductDao.selectCatAndWord(Integer.parseInt(catName),keyword,start);
 
 		} else if(catName!="") {
-			ProductList = ProductDao.selectCategory(Integer.parseInt(catName));
+			count = ProductDao.countCategory(Integer.parseInt(catName));
+			ProductList = ProductDao.selectCategory(Integer.parseInt(catName),start);
 
 		} else if(keyword!="") {
-			ProductList = ProductDao.selectProName(keyword);
+			count = ProductDao.countProName(keyword);
+			ProductList = ProductDao.selectProName(keyword,start);
 		}
 
 		if(ProductList.size()==0) {
 			request.setAttribute("errorMessage2","検索結果がありません");
 
 		} else {
+			count/=10;
+			request.setAttribute("count", new BigDecimal(String.valueOf(count)).setScale(0, RoundingMode.UP).doubleValue());
 			request.setAttribute("product",ProductList);
+			request.setAttribute("catName",catName);
+			request.setAttribute("keyword",keyword);
+			System.out.println(count);
 		}
 
 		request.getRequestDispatcher("/CategoryServlet").forward(request,response);

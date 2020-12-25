@@ -27,7 +27,7 @@ public class ConfirmationServlet extends HttpServlet {
 			int stockNo = (CartProBean.getStockNo())-(CartProBean.getNumber());
 			new ProductDao().updateStock(Integer.toString(CartProBean.getProCd()),Integer.toString(stockNo));
 
-			new SalesDao().insertSales(CartBean.getUserId(),Integer.toString(CartProBean.getProCd()),CartProBean.getProPrice());
+			new SalesDao().insertSales(CartBean.getUserId(),CartProBean.getProCd(),CartProBean.getProPrice());
 		}
 
 		CartBean.setCartProList(new ArrayList<>());

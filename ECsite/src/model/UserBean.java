@@ -2,9 +2,9 @@ package model;
 
 public class UserBean {
 
-	int userId;
-	String loginCd;
-	String loginPw;
+	private int userId;
+	private String loginCd;
+	private String loginPw;
 
 	public UserBean() {
 	}

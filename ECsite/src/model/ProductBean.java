@@ -2,14 +2,14 @@ package model;
 
 public class ProductBean {
 
-	int proCd;
-	String proName;
-	int stockNo;
-	int proPrice;
-	int catId;
-	String proImg;
-	String proMsg;
-	String catName;
+	private int proCd;
+	private String proName;
+	private int stockNo;
+	private int proPrice;
+	private int catId;
+	private String proImg;
+	private String proMsg;
+	private String catName;
 
 	public ProductBean() {
 

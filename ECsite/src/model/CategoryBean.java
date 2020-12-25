@@ -1,8 +1,8 @@
 package model;
 
 public class CategoryBean {
-	int catId;
-	String catName;
+	private int catId;
+	private String catName;
 
 	public CategoryBean() {
 	}

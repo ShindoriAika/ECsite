@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class SalesDao extends Dao {
 
-	public void insertSales (int userId,String proCd,int salesPrice){
+	public void insertSales (int userId,int proCd,int salesPrice){
 
 		try {
 			connection();
@@ -13,7 +13,7 @@ public class SalesDao extends Dao {
 					+ "values (?,?,now(),?)";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1,userId);
-			pstmt.setString(2,proCd);
+			pstmt.setInt(2,proCd);
 			pstmt.setInt(3,salesPrice);
 			pstmt.executeUpdate();
 

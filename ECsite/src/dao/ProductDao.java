@@ -9,13 +9,36 @@ public class ProductDao extends Dao{
 
 	ArrayList<ProductBean> ProductList = new ArrayList<>();
 
-	public ArrayList<ProductBean> selectAll(){
-
+	public int countAll() {
+		int count = 0;
 		try {
 			connection();
 			stmt = conn.createStatement();
-			String query = "select * from product";
+			String query = "select count(*) from product";
 			rs = stmt.executeQuery(query);
+
+			rs.next();
+			count = rs.getInt(1);
+
+		} catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return count;
+	}
+
+	public ArrayList<ProductBean> selectAll(int start){
+
+		try {
+			connection();
+			String query = "select * from product limit ?,10";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,start);
+			rs = pstmt.executeQuery();
 
 			while(rs.next()){
 				ProductBean ProductBean = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
@@ -36,23 +59,18 @@ public class ProductDao extends Dao{
 		return ProductList;
 	}
 
-	public ArrayList<ProductBean> selectCatAndWord(int catName,String keyword){
-
+	public int countCatAndWord(int catName,String keyword) {
+		int count = 0;
 		try {
 			connection();
-			String query = "select * from product where pro_name like ? and cat_id=?";
+			String query = "select count(*) from product where pro_name like ? and cat_id=?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1,"%"+keyword+"%");
 			pstmt.setInt(2,catName);
 			rs = pstmt.executeQuery();
 
-			while(rs.next()){
-				ProductBean ProductBean = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
-						rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
-						rs.getString("pro_img"),rs.getString("pro_msg"));
-
-				ProductList.add(ProductBean);
-			}
+			rs.next();
+			count = rs.getInt(1);
 
 		} catch(ClassNotFoundException ex) {
 			ex.printStackTrace();
@@ -62,16 +80,18 @@ public class ProductDao extends Dao{
 			close();
 		}
 
-		return ProductList;
+		return count;
 	}
 
-	public ArrayList<ProductBean> selectCategory(int catName){
+	public ArrayList<ProductBean> selectCatAndWord(int catName,String keyword,int start){
 
 		try {
 			connection();
-			String query = "select * from product where cat_id=?";
+			String query = "select * from product where pro_name like ? and cat_id=? limit ?,10";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1,catName);
+			pstmt.setString(1,"%"+keyword+"%");
+			pstmt.setInt(2,catName);
+			pstmt.setInt(3,start);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){
@@ -93,13 +113,89 @@ public class ProductDao extends Dao{
 		return ProductList;
 	}
 
-	public ArrayList<ProductBean> selectProName(String keyword){
+	public int countCategory(int catName) {
+		int count = 0;
+		try {
+			connection();
+			String query = "select count(*) from product where cat_id=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,catName);
+			rs = pstmt.executeQuery();
+
+			rs.next();
+			count = rs.getInt(1);
+
+		} catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return count;
+	}
+
+	public ArrayList<ProductBean> selectCategory(int catName,int start){
 
 		try {
 			connection();
-			String query = "select * from product where pro_name like ?";
+			String query = "select * from product where cat_id=? limit ?,10";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,catName);
+			pstmt.setInt(2,start);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()){
+				ProductBean ProductBean = new ProductBean(rs.getInt("pro_cd"),rs.getString("pro_name"),
+						rs.getInt("stock_no"),rs.getInt("pro_price"),rs.getInt("cat_id"),
+						rs.getString("pro_img"),rs.getString("pro_msg"));
+
+				ProductList.add(ProductBean);
+			}
+
+		} catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return ProductList;
+	}
+
+	public int countProName(String keyword) {
+		int count = 0;
+		try {
+			connection();
+			String query = "select count(*) from product where pro_name like ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1,"%"+keyword+"%");
+			rs = pstmt.executeQuery();
+
+			rs.next();
+			count = rs.getInt(1);
+
+		} catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return count;
+	}
+
+	public ArrayList<ProductBean> selectProName(String keyword,int start){
+
+		try {
+			connection();
+			String query = "select * from product where pro_name like ? limit ?,10";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,"%"+keyword+"%");
+			pstmt.setInt(2,start);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){

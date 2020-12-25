@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class CartBean {
 
-	int userId;
-	ArrayList<CartProductBean> cartProList;
-	int tax;
-	int total;
+	private int userId;
+	private ArrayList<CartProductBean> cartProList;
+	private int tax;
+	private int total;
 
 	public int getUserId() {
 		return userId;
