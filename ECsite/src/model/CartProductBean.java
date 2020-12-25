@@ -32,6 +32,10 @@ public class CartProductBean {
 		return proPrice;
 	}
 
+	public void setStockNo(int stockNo) {
+		this.stockNo = stockNo;
+	}
+
 	public int getStockNo() {
 		return stockNo;
 	}

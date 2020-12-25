@@ -241,7 +241,7 @@ public class ProductDao extends Dao{
 		return stockNo;
 	}
 
-	public ProductBean selectProCode(String proCd){
+	public ProductBean selectProCode(int proCd){
 
 		ProductBean ProductBean = null;
 
@@ -252,7 +252,7 @@ public class ProductDao extends Dao{
 					+ "from product p,category c "
 					+ "where p.pro_cd=? and p.cat_id=c.cat_id";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,proCd);
+			pstmt.setInt(1,proCd);
 			rs = pstmt.executeQuery();
 
 			rs.next();
@@ -271,14 +271,14 @@ public class ProductDao extends Dao{
 		return ProductBean;
 	}
 
-	public void updateStock (String proCd,String stockNo){
+	public void updateStock (int proCd,int stockNo){
 
 		try {
 			connection();
 			String query = "update product set stock_no=? where pro_cd=?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,stockNo);
-			pstmt.setString(2,proCd);
+			pstmt.setInt(1,stockNo);
+			pstmt.setInt(2,proCd);
 			pstmt.executeUpdate();
 
 		} catch(ClassNotFoundException ex) {

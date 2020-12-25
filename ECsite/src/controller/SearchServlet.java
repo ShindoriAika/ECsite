@@ -20,7 +20,7 @@ public class SearchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    	String proCd = request.getParameter("proCd");
+    	int proCd = Integer.parseInt(request.getParameter("proCd"));
 
     	ProductBean ProductBean = new ProductDao().selectProCode(proCd);
     	request.setAttribute("product",ProductBean);
