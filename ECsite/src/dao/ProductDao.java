@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.ProductBean;
 
@@ -217,18 +218,19 @@ public class ProductDao extends Dao{
 		return ProductList;
 	}
 
-	public int selectStock(int proCd) {
-		int stockNo = 0;
+	public HashMap<Integer,Integer> selectStock(String inString) {
+		HashMap<Integer,Integer> stockMap = new HashMap<>();
 
 		try {
 			connection();
-			String query = "select stock_no from product where pro_cd=?";
+			String query = "select pro_cd,stock_no from product where pro_cd in (?)";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1,proCd);
+			pstmt.setString(1,inString);
 			rs = pstmt.executeQuery();
 
-			rs.next();
-			stockNo = rs.getInt("stock_no");
+			while(rs.next()) {
+				stockMap.put(rs.getInt("pro_cd"), rs.getInt("stock_no"));
+			}
 
 		} catch(ClassNotFoundException ex) {
 			ex.printStackTrace();
@@ -238,7 +240,7 @@ public class ProductDao extends Dao{
 			close();
 		}
 
-		return stockNo;
+		return stockMap;
 	}
 
 	public ProductBean selectProCode(int proCd){

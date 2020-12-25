@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,8 +43,22 @@ public class ConfirmationServlet extends HttpServlet {
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
 		ProductDao ProductDao = new ProductDao();
 
+		String inString = "";
+		int roop = 0;
+
 		for(CartProductBean CartProBean : CartProList) {
-			int stockNo = ProductDao.selectStock(CartProBean.getProCd());
+			inString += CartProBean.getProCd();
+			roop++;
+			if(roop==CartProList.size()) {
+				break;
+			}
+			inString +=",";
+		}
+
+		HashMap<Integer,Integer> stockMap = ProductDao.selectStock(inString);
+
+		for(CartProductBean CartProBean : CartProList) {
+			int stockNo = stockMap.get(CartProBean.getProCd());
 			if(stockNo!=0) {
 				CartProBean.setStockNo(stockNo);
 				stockNo = (CartProBean.getStockNo())-(CartProBean.getNumber());
