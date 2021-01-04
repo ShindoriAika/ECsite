@@ -218,15 +218,23 @@ public class ProductDao extends Dao{
 		return ProductList;
 	}
 
-	public HashMap<Integer,Integer> selectStock(String inString) {
+	public HashMap<Integer,Integer> selectStock(ArrayList<Integer> array) {
 		HashMap<Integer,Integer> stockMap = new HashMap<>();
 
 		try {
 			connection();
-			String query = "select pro_cd,stock_no from product where pro_cd in (?)";
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1,inString);
-			rs = pstmt.executeQuery();
+			ArrayList<String> list = new ArrayList<>();
+			for(int i:array) {
+				list.add("?");
+			}
+			String str = String.join(",", list);
+			StringBuilder sb = new StringBuilder("select pro_cd,stock_no from product where pro_cd in (");
+			sb = sb.append(str).append(")");
+			pstmt = conn.prepareStatement(sb.toString());
+			for(int i=1;i<=array.size();i++) {
+				pstmt.setInt(i,array.get(i-1));
+			}
+				rs = pstmt.executeQuery();
 
 			while(rs.next()) {
 				stockMap.put(rs.getInt("pro_cd"), rs.getInt("stock_no"));

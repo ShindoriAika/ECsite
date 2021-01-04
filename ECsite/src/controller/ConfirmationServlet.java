@@ -43,15 +43,14 @@ public class ConfirmationServlet extends HttpServlet {
 		ArrayList<CartProductBean> CartProList = CartBean.getCartProList();
 		ProductDao ProductDao = new ProductDao();
 
-		ArrayList<String> proCdList = new ArrayList<>();
+		ArrayList<Integer> proCdList = new ArrayList<>();
 
 		for(CartProductBean CartProBean : CartProList) {
-			proCdList.add(Integer.toString(CartProBean.getProCd()));
+			proCdList.add(CartProBean.getProCd());
 		}
 
-		String inString = String.join(",", proCdList);
-
-		HashMap<Integer,Integer> stockMap = ProductDao.selectStock(inString);
+		HashMap<Integer,Integer> stockMap = ProductDao.selectStock(proCdList);
+		System.out.println(stockMap);
 
 		for(CartProductBean CartProBean : CartProList) {
 			int stockNo = stockMap.get(CartProBean.getProCd());
