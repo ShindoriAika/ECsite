@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.UserBean;
 
@@ -31,6 +32,31 @@ public class UserDao extends Dao{
 		}
 
 		return ub;
+	}
+
+	public ArrayList<String> selectAllAcount(String loginCd) {
+		ArrayList<String> loginCdList = new ArrayList<>();
+
+		try {
+			connection();
+			String query = "select * from user where login_cd = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,loginCd);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				loginCdList.add(rs.getString("login_cd"));
+			}
+
+		} catch(ClassNotFoundException ex) {
+			ex.printStackTrace();
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return loginCdList;
 	}
 
 	public void insertAccount (String loginCd,String loginPw){

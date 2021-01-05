@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 
 		UserBean UserBean = new UserDao().selectLogin(loginCd,loginPw);
 
-		if(UserBean.getUserId() == 0) {
+		if(UserBean == null) {
 			request.setAttribute("errorMessage","正しい名前とパスワードを入力してください");
 			request.getRequestDispatcher("/view/Login.jsp").forward(request,response);
 

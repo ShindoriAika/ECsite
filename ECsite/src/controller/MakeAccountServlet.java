@@ -31,6 +31,10 @@ public class MakeAccountServlet extends HttpServlet {
 			request.setAttribute("message","入力してください");
 			request.getRequestDispatcher("/view/MakeAccount.jsp").forward(request,response);
 
+		}else if(new UserDao().selectAllAcount(loginCd).size()!=0){
+			request.setAttribute("message","違う名前にしてください");
+			request.getRequestDispatcher("/view/MakeAccount.jsp").forward(request,response);
+
 		}else {
 			new UserDao().insertAccount(loginCd,loginPw);
 			response.sendRedirect("/ECsite/MakeAccountServlet");
